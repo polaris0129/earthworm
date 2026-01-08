@@ -58,9 +58,9 @@ services:
       - PORT=3010
       - ADMIN_PORT=3011
       # 对外 UI 前缀：/logto
-      - ENDPOINT=https://e.meta-wit.top/logto
+      #- ENDPOINT=https://e.meta-wit.top/logto
       # 对外管理端前缀：/ladmin
-      - ADMIN_ENDPOINT=https://e.meta-wit.top/ladmin
+      #- ADMIN_ENDPOINT=https://e.meta-wit.top/ladmin
   logtoPostgres:
     restart: always
     image: postgres:14-alpine
