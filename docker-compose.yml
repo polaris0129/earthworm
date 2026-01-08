@@ -58,7 +58,7 @@ services:
       - PORT=3010
       - ADMIN_PORT=3011
       - ENDPOINT=https://e.meta-wit.top
-      - ADMIN_ENDPOINT
+      - ADMIN_ENDPOINT=https://e.meta-wit.top/admin
   logtoPostgres:
     restart: always
     image: postgres:14-alpine
