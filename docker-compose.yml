@@ -57,7 +57,7 @@ services:
       # Or, you can leverage it for local testing.
       - PORT=3010
       - ADMIN_PORT=3011
-      - ENDPOINT
+      - ENDPOINT=https://e.meta-wit.top
       - ADMIN_ENDPOINT
   logtoPostgres:
     restart: always
