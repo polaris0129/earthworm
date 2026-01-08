@@ -57,8 +57,10 @@ services:
       # Or, you can leverage it for local testing.
       - PORT=3010
       - ADMIN_PORT=3011
-      - ENDPOINT=https://e.meta-wit.top
-      - ADMIN_ENDPOINT=https://e.meta-wit.top/admin
+      # 对外 UI 前缀：/logto
+      - ENDPOINT=https://e.meta-wit.top/logto
+      # 对外管理端前缀：/ladmin
+      - ADMIN_ENDPOINT=https://e.meta-wit.top/ladmin
   logtoPostgres:
     restart: always
     image: postgres:14-alpine
