@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   db:
     restart: always
@@ -16,30 +18,13 @@ services:
       retries: 5
     ports:
       - 5433:5432
-  testdb:
-    image: postgres:14-alpine
-    user: postgres
-    volumes:
-      - data:/var/lib/postgres/test-data
-    environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: earthworm_test
-    ports:
-      - 5480:5432
   redis:
     image: redis:5-alpine
     restart: always
     volumes:
       - data:/var/lib/redis
     ports:
-      - 6379:6379
-  testRedis:
-    image: redis:5-alpine
-    volumes:
-      - data:/var/lib/test-redis
-    ports:
-      - 6380:6379
+      - 16379:6379
   logto:
     restart: always
     depends_on:
@@ -57,10 +42,8 @@ services:
       # Or, you can leverage it for local testing.
       - PORT=3010
       - ADMIN_PORT=3011
-      # 对外 UI 前缀：/logto
-      #- ENDPOINT=https://e.meta-wit.top/logto
-      # 对外管理端前缀：/ladmin
-      #- ADMIN_ENDPOINT=https://e.meta-wit.top/ladmin
+      - ENDPOINT=https://logto.meta-wit.top/
+      - ADMIN_ENDPOINT=https://ladmin.meta-wit.top/
   logtoPostgres:
     restart: always
     image: postgres:14-alpine
@@ -75,7 +58,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+    ports:
+      # 对外暴露：宿主机 5434 → 容器 5432
+      - "5434:5432"
   nginx:
     image: nginx:alpine
     container_name: earthworm-nginx
@@ -88,6 +73,7 @@ services:
     volumes:
       - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/certs:/etc/nginx/certs:ro
+      - /data/app/earthworm/apps/client/.output/public:/var/www/client:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
